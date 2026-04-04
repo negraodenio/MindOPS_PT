@@ -8,9 +8,12 @@ const inter = Inter({
   variable: "--font-inter",
 });
 
-export const metadata = {
-  title: "MindOps // PsicoRisco PT",
-  description: "Plataforma de gestão de riscos psicossociais, conformidade e assistência assistida (M2.7 Audit Ready)"
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "AEGIS HUB // Intelligence Ocupacional",
+  description: "A plataforma líder para diagnóstico psicossocial e intervenção assistida por IA (M2.7) no contexto da AEGIS HUB.",
+  manifest: "/manifest.json",
 };
 
 import { SOSChatWidget } from "../features/sos/components/SOSChatWidget";

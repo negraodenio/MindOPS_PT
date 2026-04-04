@@ -167,7 +167,7 @@ export const FichaAptidaoPDF = ({
 
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>3. RISCOS PROFISSIONAIS AVALIADOS</Text>
-          <Text style={styles.value}>Avaliação psicossocial digital (COPSOQ III), Risco de Burnout, Ansiedade (GAD-7) e Depressão (PHQ-9). Análise de biometria vocal MindOps v1.2.</Text>
+          <Text style={styles.value}>Avaliação psicossocial digital (COPSOQ III), Risco de Burnout, Ansiedade (GAD-7) e Depressão (PHQ-9). Análise de biometria vocal AEGIS v1.2.</Text>
         </View>
 
         <View style={[styles.resultBox, { borderColor: status.color }]}>
@@ -177,6 +177,7 @@ export const FichaAptidaoPDF = ({
         <View style={styles.section}>
           <Text style={styles.sectionTitle}>4. OBSERVAÇÕES E NOTAS CLÍNICAS (AI GENERATED)</Text>
           <Text style={styles.value}>
+            AEGIS Enterprise Platform - Gerado automaticamente em {new Date().toLocaleDateString("pt-PT")}. 
             Análise concluída com {(aiConfidence * 100).toFixed(1)}% de confiança. 
             Baseada nos protocolos clínicos validados pela Ordem dos Médicos em Portugal.
           </Text>
@@ -188,7 +189,7 @@ export const FichaAptidaoPDF = ({
           </View>
           <View style={styles.signatureBox}>
             <View style={styles.signatureLine} />
-            <Text style={{ fontSize: 8 }}>Médico do Trabalho / Auditor MindOps</Text>
+            <Text style={{ fontSize: 8 }}>Médico do Trabalho / Auditor AEGIS</Text>
             <Text style={{ fontSize: 7, color: '#999' }}>ID Digital: SIG-{Math.random().toString(36).substr(2, 9).toUpperCase()}</Text>
           </View>
         </View>

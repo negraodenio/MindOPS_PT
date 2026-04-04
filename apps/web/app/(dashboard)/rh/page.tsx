@@ -24,12 +24,17 @@ export default async function RHDashboardPage({
     return (
       <main className="space-y-12 p-8 max-w-7xl mx-auto animate-in fade-in duration-500">
       <header className="flex items-end justify-between border-b border-white/10 pb-8">
-        <div>
-          <div className="flex items-center gap-2 text-indigo-400 mb-2">
-            <Building2 className="h-4 w-4" />
-            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Tenant: ACME Enterprise</span>
+        <div className="flex flex-col gap-6">
+          <div className="flex items-center gap-3">
+             <div className="h-10 w-10 rounded-xl bg-gradient-to-br from-emerald-400 to-cyan-500 flex items-center justify-center">
+                <BrainCircuit className="h-6 w-6 text-black" />
+             </div>
+             <h1 className="text-2xl font-black tracking-tighter italic uppercase italic">AEGIS <span className="font-light not-italic text-neutral-500 ml-1">HUB</span> / RH & SST</h1>
           </div>
-          <h1 className="text-3xl font-bold tracking-tight text-white">Dashboard RH & SST</h1>
+          <div className="flex items-center gap-2 text-indigo-400">
+            <Building2 className="h-4 w-4" />
+            <span className="text-[10px] font-black uppercase tracking-[0.2em]">Tenant Auditada: ACME Enterprise // Portugal</span>
+          </div>
           <p className="mt-2 text-sm text-slate-400 max-w-lg">
             Visão executiva estratégica de risco psicossocial, cobertura clínica e conformidade normativa (Lei 102/2009).
           </p>
@@ -87,7 +92,7 @@ export default async function RHDashboardPage({
     console.error("[RH_DASHBOARD_ERROR]", error);
     return (
       <div className="p-20 text-center">
-        <h2 className="text-xl font-bold text-rose-500">Erro de Carregamento</h2>
+        <h2 className="text-2xl font-bold italic uppercase tracking-tighter">Centro de Inteligência <span className="text-emerald-500">AEGIS HUB</span></h2>
         <p className="text-slate-400 mt-2">{error.message || "Falha na conexão com o Intelligence Center."}</p>
         <div className="mt-4 p-4 bg-slate-900 rounded-lg text-left font-mono text-[10px] text-slate-500 overflow-auto max-w-2xl mx-auto">
            Verifique se o seu perfil tem acesso ao Tenant { "e037420f-71b2-40e7-935f-170eb265b36a" } e se as migrações SQL foram aplicadas.

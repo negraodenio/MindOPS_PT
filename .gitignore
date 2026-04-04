@@ -2,8 +2,31 @@ node_modules
 .next
 dist
 .turbo
+out
+build
 coverage
-supabase/.temp
-pnpm-lock.yaml
+
+# Environment & Secrets
+.env
+.env.local
+.env.*
+!.env.example
+*.env
+
+# Logs & Temp
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+supabase/.temp
+
+# System & IDE
+.DS_Store
+.vscode
 .antigravity
+.idea
+
+# Lockfiles (Opt-out)
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
