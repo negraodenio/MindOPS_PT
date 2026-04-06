@@ -168,12 +168,12 @@ export class AssessmentService {
       }
 
       // 7. Auto-Generate Corrective Action for High Risk [SENIOR PRODUCT FEATURE]
-      if (score.riskLevel === "ALERTA" || score.riskLevel === "CRÍTICO") {
+      if (score.riskLevel === "high" || score.riskLevel === "critical") {
         await (client.from("corrective_actions") as any).insert({
           tenant_id: tenantId,
           title: `Intervenção Preventiva: ${employee.full_name}`,
           description: `Risco Detectado: ${score.riskLevel}. Motivos: ${score.reasons.join(", ")}. Requer revisão organizacional imediata.`,
-          priority: score.riskLevel === "CRÍTICO" ? "CRITICAL" : "HIGH",
+          priority: score.riskLevel === "critical" ? "CRITICAL" : "HIGH",
           status: "PLANNED"
         });
       }

@@ -12,7 +12,7 @@ export async function submitConsentAction(params: {
   const supabase = await createClient();
   
   const promises = params.consents.map(c => 
-    saveConsentLog(supabase, {
+    saveConsentLog(supabase as any, {
       employeeId: params.employeeId,
       tenantId: params.tenantId,
       consentType: c.type,
@@ -31,7 +31,7 @@ export async function submitAssessmentAction(formData: {
   voicePath?: string | undefined;
 }) {
   const supabase = await createClient();
-  const result = await AssessmentService.submitCompleteAssessment(supabase as any, formData);
+  const result = await AssessmentService.submitCompleteAssessment(supabase as any, formData as any);
 
   if (result.success) {
     // Revalidar Dashboards afetados pelos novos scores
@@ -45,7 +45,8 @@ export async function submitAssessmentAction(formData: {
 export async function getAssessmentContext(token: string) {
   const supabase = await createClient();
   // Simple POC: token is expected to be employeeId (UUID)
-  const { data: employee, error } = await getEmployeeContext(supabase, token);
+  const { data: rawEmployee, error } = await getEmployeeContext(supabase as any, token);
+  const employee = rawEmployee as any;
   if (error || !employee) return null;
   return {
     employeeName: employee.full_name,

@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     }
 
     const token = authHeader.split(" ")[1];
-    const { success, employeeId, tenantId } = await verifyAssessmentToken(token);
+    const { success, employeeId, tenantId } = await verifyAssessmentToken(token as string);
 
     if (!success || !employeeId || !tenantId) {
       return NextResponse.json({ error: "Unauthorized: Invalid or expired token" }, { status: 401 });

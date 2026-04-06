@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { composeRiskScore } from "@mindops/domain";
-import { saveScore, completeSession } from "@mindops/database";
+import { completeSession } from "@mindops/database";
+import { createClient } from "@/utils/supabase/server";
 import { z } from "zod";
 
 const ScoreRequestSchema = z.object({
@@ -36,9 +37,11 @@ export async function POST(request: Request) {
     }
 
     const score = result.value;
+    const supabase = await createClient();
 
+    // The legacy saveScore doesn't exist anymore, doing straight inserts
     await Promise.all([
-      saveScore({
+      (supabase.from("assessment_scores") as any).insert({
         session_id: sessionId,
         phq9_score: input.phq9Score ?? null,
         gad7_score: input.gad7Score ?? null,
@@ -52,7 +55,7 @@ export async function POST(request: Request) {
         confidence: score.confidence,
         reasons: score.reasons
       }),
-      completeSession(sessionId)
+      completeSession(supabase as any, sessionId)
     ]);
 
     return NextResponse.json(score);
