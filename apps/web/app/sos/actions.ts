@@ -27,30 +27,33 @@ export async function sendSOSMessage(sessionId: string, message: string, employe
     if (analysis.requires_human || analysis.risk_score > 0.7) {
       escalated = true;
       
-      // Calculate SLA Deadline (15 minutes for High Risk events)
-      const slaDeadline = new Date(Date.now() + 15 * 60000).toISOString();
+      const isCompliance = analysis.intent === 'whistleblower';
+      
+      // Calculate SLA Deadline (15 minutes for High Risk events and Compliance Breaches)
+      const escalationMinutes = 15;
+      const slaDeadline = new Date(Date.now() + escalationMinutes * 60000).toISOString();
 
       await (supabase.from("care_referrals") as any).insert({
         employee_id: employeeId !== "anonymous" ? employeeId : null,
         session_id: sessionId,
-        referral_type: 'sos_emergency_t1',
-        urgency: 'high',
+        referral_type: isCompliance ? 'compliance_officer_ticket' : 'sos_emergency_t1',
+        urgency: isCompliance ? 'critical' : 'high',
         status: 'pending',
         sla_deadline: slaDeadline
       });
 
       await (supabase.from("sos_sessions") as any).update({ 
-        status: 'escalated',
+        status: isCompliance ? 'escalated_compliance' : 'escalated',
         risk_level: analysis.intent,
         summary: analysis.summary
       }).eq("id", sessionId);
 
       // Audit Log for AI Act Compliance (Audit Fix #5)
       await (supabase.from("ai_audit_logs") as any).insert({
-        action: 'emergency_escalation_triggered',
+        action: isCompliance ? 'whistleblower_escalation_triggered' : 'emergency_escalation_triggered',
         actor: 'm2.7_triage_engine',
         status: 'success',
-        details: JSON.stringify({ analysis, sla: "15min" })
+        details: JSON.stringify({ analysis, sla: `${escalationMinutes}min` })
       });
     }
 
@@ -60,6 +63,8 @@ export async function sendSOSMessage(sessionId: string, message: string, employe
       reply = "🚨 Compreendo a gravidade. Já notifiquei um profissional de saúde da sua empresa. Por favor, tente respirar fundo, estamos consigo.";
     } else if (analysis.intent === 'distress') {
       reply = "Sinto o seu cansaço. Queria falar com um profissional agora ou prefere continuar a desabafar comigo?";
+    } else if (analysis.intent === 'whistleblower') {
+      reply = "🔒 Registei a sua submissão num canal seguro e anonimizado, ao abrigo da Lei 93/2021. O Oficial de Integridade (DPO) da sua empresa já foi notificado e tratará deste caso com sigilo absoluto.";
     }
 
     // 5. Persist AI Response

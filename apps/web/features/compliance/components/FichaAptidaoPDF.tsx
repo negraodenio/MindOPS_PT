@@ -171,7 +171,8 @@ export const FichaAptidaoPDF = ({
         </View>
 
         <View style={[styles.resultBox, { borderColor: status.color }]}>
-          <Text style={[styles.resultText, { color: status.color }]}>RESULTADO DO EXAME: {status.label}</Text>
+          <Text style={[styles.resultText, { color: status.color }]}>PRÉ-TRIAGEM PREDITIVA (IA): {status.label}</Text>
+          <Text style={{ fontSize: 8, color: '#D32F2F', marginTop: 5, fontWeight: 'bold' }}>ATENÇÃO: ESTE DOCUMENTO AGUARDA VALIDAÇÃO PRESENCIAL DO MÉDICO DO TRABALHO</Text>
         </View>
 
         <View style={styles.section}>

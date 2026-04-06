@@ -10,3 +10,4 @@ export * from "./assessment/roi-calculator";
 export * from "./compliance/act-report-generator";
 export * from "./ai/m27-simulator";
 export * from "./ai/self-optimization";
+export * from "./voice/risk-engine";

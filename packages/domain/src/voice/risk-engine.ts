@@ -2,7 +2,7 @@ import { MiniMaxSimulator } from "../ai/m27-simulator";
 
 export interface SOSRiskAnalysis {
   risk_score: number; // 0 to 1
-  intent: "normal" | "distress" | "crisis";
+  intent: "normal" | "distress" | "crisis" | "whistleblower";
   summary: string;
   recommended_action: string;
   requires_human: boolean;
@@ -26,11 +26,12 @@ export class SOSRiskEngine {
       - 'normal': Dúvidas gerais ou conversa casual.
       - 'distress': Sinais de stress, cansaço extremo ou desabafo emocional.
       - 'crisis': Sinais de desespero, ideação de auto-flagelação ou pedido direto de socorro.
+      - 'whistleblower': Indícios de assédio moral/sexual, fraude, corrupção ou denúncia grave.
       
       Responda ESTRITAMENTE em JSON:
       {
         "risk_score": number,
-        "intent": "normal" | "distress" | "crisis",
+        "intent": "normal" | "distress" | "crisis" | "whistleblower",
         "summary": "resumo de 1 frase",
         "recommended_action": "orientação curta",
         "requires_human": boolean
@@ -51,14 +52,29 @@ export class SOSRiskEngine {
       }
     }
 
-    // Fallback de Segurança (Lei 102/2009 Compliance)
+    // Fallback de Segurança (Lei 102/2009 Compliance & Lei 93/2021)
     const isCrisis = /socorro|ajuda|morrer|acabar|urgente|112/i.test(message);
+    const isWhistleblower = /assédio|abuso|fraude|corrupção|denúncia/i.test(message);
+    
+    let intentLabel: "normal" | "distress" | "crisis" | "whistleblower" = "normal";
+    let score = 0.3;
+    let rec = "Monitorização basal.";
+    let human = false;
+
+    if (isCrisis) {
+      intentLabel = "crisis"; score = 0.9;
+      rec = "Escalar para humano imediatamente."; human = true;
+    } else if (isWhistleblower) {
+      intentLabel = "whistleblower"; score = 0.95;
+      rec = "Encaminhar para Canal Seguro do DPO/Compliance."; human = true;
+    }
+
     return {
-      risk_score: isCrisis ? 0.9 : 0.3,
-      intent: isCrisis ? "crisis" : "normal",
-      summary: "Análise via fallback de segurança.",
-      recommended_action: isCrisis ? "Escalar para humano imediatamente." : "Monitorização basal.",
-      requires_human: isCrisis
+      risk_score: score,
+      intent: intentLabel,
+      summary: "Análise via fallback de segurança dinâmico.",
+      recommended_action: rec,
+      requires_human: human
     };
   }
 }

@@ -4,6 +4,7 @@ export interface PredictiveRiskInput {
   sickLeaveEpisodes180d: number;
   incompleteAssessments: number;
   voiceDelta?: number;
+  rightToDisconnectBreachesCount?: number;
 }
 
 export interface PredictiveRiskOutput {
@@ -29,6 +30,7 @@ export function predictRisk(input: PredictiveRiskInput): PredictiveRiskOutput {
   score += Math.min(input.sickLeaveEpisodes180d * 6, 18);
   score += Math.min(input.incompleteAssessments * 3, 9);
   score += Math.min(Math.max(input.voiceDelta ?? 0, 0), 10);
+  score += Math.min((input.rightToDisconnectBreachesCount ?? 0) * 8, 25);
   score += trend > 0 ? Math.min(trend * 0.3, 15) : 0;
 
   const predictedRiskScore = Math.round(Math.max(0, Math.min(100, score)));
@@ -44,6 +46,7 @@ export function predictRisk(input: PredictiveRiskInput): PredictiveRiskOutput {
   if (input.absenteeismDays90d >= 5) drivers.push("high_recent_absenteeism");
   if (input.sickLeaveEpisodes180d >= 2) drivers.push("recurrent_sick_leave");
   if ((input.voiceDelta ?? 0) >= 8) drivers.push("voice_signal_deterioration");
+  if ((input.rightToDisconnectBreachesCount ?? 0) >= 2) drivers.push("right_to_disconnect_violation");
 
   return { predictedRiskScore, predictedRiskLevel, drivers };
 }
