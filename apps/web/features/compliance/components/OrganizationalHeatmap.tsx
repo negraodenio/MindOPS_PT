@@ -10,7 +10,8 @@ import {
   Users, 
   Lock,
   ArrowUpRight,
-  Filter
+  Filter,
+  FileCheck
 } from 'lucide-react';
 
 interface TeamRisk {
