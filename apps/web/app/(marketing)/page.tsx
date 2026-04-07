@@ -1,5 +1,5 @@
 import React from 'react';
-import { Shield, Lock, Gavel, BarChart3, Users, Zap, FileCheck, CheckCircle2, AlertTriangle, ArrowRight, HeartPulse, Activity, UserCheck, MessageSquare } from 'lucide-react';
+import { Shield, Lock, Gavel, BarChart3, Users, Zap, FileCheck, CheckCircle2, AlertTriangle, ArrowRight, HeartPulse, Activity, UserCheck, MessageSquare, TrendingUp, Brain } from 'lucide-react';
 import Link from 'next/link';
 
 export default function MarketingPage() {
