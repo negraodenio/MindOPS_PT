@@ -41,7 +41,7 @@ export default function MarketingPage() {
                   Inteligência a favor da <span className="text-emerald-600 italic">Vida</span> no Trabalho.
                 </h1>
                 <p className="text-xl md:text-2xl text-slate-500 max-w-xl font-medium leading-relaxed">
-                  A plataforma europeia de Saúde Ocupacional que une o cuidado humano à precisão da Inteligência Artificial. Proteja o capital humano e suporte a conformidade integral da sua organização.
+                  O AEGIS HUB é uma plataforma de apoio à gestão de risco psicossocial que ajuda organizações a estruturar processos compatíveis com a Lei 102/2009, a Lei 93/2021 e a Lei 83/2021.
                 </p>
               </div>
               
@@ -88,7 +88,7 @@ export default function MarketingPage() {
                      <span className="font-black tracking-tighter text-lg italic">Certificado M2.7</span>
                   </div>
                   <p className="text-xs text-slate-400 max-w-[200px] leading-relaxed">
-                     Protocolos clínicos validados e anonimização de grau militar.
+                     Protocolos clínicos validados e mecanismos de minimização de dados.
                   </p>
                </div>
             </div>
@@ -124,8 +124,8 @@ export default function MarketingPage() {
         {/* AS 3 GRANDES SOLUÇÕES */}
         <section className="py-32 bg-white overflow-hidden relative">
           <div className="max-w-7xl mx-auto px-6 relative z-10 text-center mb-24">
-             <h2 className="text-5xl font-black tracking-tighter mb-6">As 3 Grandes Soluções.</h2>
-             <p className="text-slate-500 text-xl font-medium max-w-2xl mx-auto mb-10">O ecossistema integral para gestão de riscos psicossociais de forma auditável e com sigilo técnico.</p>
+             <h2 className="text-5xl font-black tracking-tighter mb-6">Três Pilares Regulatórios.</h2>
+             <p className="text-slate-500 text-xl font-medium max-w-2xl mx-auto mb-10">O ecossistema de apoio à gestão de riscos psicossociais, denúncias e monitorização através de ferramentas validadas.</p>
              <button className="flex items-center gap-2 mx-auto font-black text-emerald-600 group text-lg">
                 Explorar Metodologia
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-2 transition-transform" />
@@ -156,7 +156,7 @@ export default function MarketingPage() {
                <p className="text-slate-500 font-medium leading-relaxed">Conformidade obrigatória com a Lei 93/2021. Encriptação assimétrica com sigilo total.</p>
                <ul className="space-y-4">
                   <li className="flex items-center gap-3 text-slate-800 font-bold text-sm">
-                     <Lock className="w-4 h-4" /> Encriptação de Grau Militar
+                     <Lock className="w-4 h-4" /> Minimização e Controlo de Acesso
                   </li>
                   <li className="flex items-center gap-3 text-slate-800 font-bold text-sm">
                      <Zap className="w-4 h-4" /> Arquitetura de Anonimização
@@ -188,9 +188,9 @@ export default function MarketingPage() {
                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 text-xs font-black uppercase tracking-widest border border-red-200">
                     <AlertTriangle className="w-4 h-4" /> Alerta de Risco Operacional
                  </div>
-                 <h2 className="text-5xl font-black text-slate-900 tracking-tighter leading-[0.95]">O Custo do Incumprimento pode ser Fatal.</h2>
+                 <h2 className="text-5xl font-black text-slate-900 tracking-tighter leading-[0.95]">Gerencie os Riscos de Acidentes e Passivo Jurídico.</h2>
                  <p className="text-xl text-slate-600 font-medium leading-relaxed">
-                    As coimas por incumprimento do RGPD e as auditorias da ACT sobre a Lei 102/2009 não são apenas teóricas. São riscos reais que o AEGIS HUB neutraliza através de infraestrutura auditável.
+                    As coimas por incumprimento do RGPD e as auditorias da ACT sobre a Lei 102/2009 exigem prevenção contínua. São riscos reais que o AEGIS HUB reduz significativamente através de infraestrutura auditável e processos guiados.
                  </p>
                  <button className="bg-slate-900 text-white px-10 py-5 rounded-[2rem] font-black text-xl hover:shadow-2xl transition-all active:scale-95">
                     Auditar Meu Risco de Multa Agora
@@ -211,8 +211,8 @@ export default function MarketingPage() {
                        <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase">NIVEL AEGIS ATIVO</span>
                     </div>
                     <div className="bg-slate-950 p-6 rounded-3xl text-center">
-                       <div className="text-red-400 font-black text-2xl tracking-tighter animate-pulse">AUDIT_CRITICAL_LEVEL</div>
-                       <div className="text-[10px] text-slate-500 mt-2 font-bold uppercase tracking-widest">Protocolo Lei 102/2009 Violado em 42% das equipas</div>
+                       <div className="text-orange-400 font-black text-2xl tracking-tighter animate-pulse">AUDIT_ATTENTION_REQUIRED</div>
+                       <div className="text-[10px] text-slate-500 mt-2 font-bold uppercase tracking-widest">Indícios Sub-Clínicos Detetados em Avaliações Recentes</div>
                     </div>
                  </div>
               </div>
