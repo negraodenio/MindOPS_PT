@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { createClient } from "@supabase/supabase-js";
 import { ACTReportDownloadButton } from "./ACTReportDownloadButton";
+import { AnexoDDownloadButton } from "./AnexoDDownloadButton";
 import { Shield, Activity, Lock, AlertTriangle, FileText, CheckCircle2 } from "lucide-react";
 
 const supabase = createClient(
@@ -58,6 +59,7 @@ export function DPODashboard({ companyName }: { companyName: string }) {
         </div>
         <div className="flex flex-wrap gap-4">
           <ACTReportDownloadButton companyName={companyName} />
+          <AnexoDDownloadButton companyName={companyName} />
           <button className="bg-emerald-600 text-white px-6 py-2.5 rounded-xl text-sm font-bold shadow-lg shadow-emerald-600/20 hover:bg-emerald-500 transition-all flex items-center gap-2">
             <FileText className="h-4 w-4" />
             Submeter ACT

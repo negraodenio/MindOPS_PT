@@ -6,3 +6,4 @@ export * from "./repositories/clinical";
 export * from "./repositories/report-service";
 export * from "./services/assessment-service";
 export * from "./services/rh-service";
+export * from "./services/report-service";
