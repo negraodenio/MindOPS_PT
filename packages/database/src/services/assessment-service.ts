@@ -27,20 +27,42 @@ export class AssessmentService {
   static async submitCompleteAssessment(
     client: SupabaseClient<Database>,
     params: {
-      employeeId: string;
+      token: string;
       answers: Record<string, number>;
       verticalPack: string;
       voicePath?: string;
     }
   ): Promise<AssessmentSubmissionResult> {
     try {
-      // 1. Validar contexto do funcionário
-      const { data: employee, error: empError } = await (getEmployeeContext(client, params.employeeId) as any);
-      if (empError || !employee) {
-        return { success: false, error: "Funcionário não encontrado ou acesso inválido." };
+      // 1. Validar e Consumir Token (Airlock Layer)
+      const { data: tokenData, error: tokenError } = await client
+        .from("assessment_tokens")
+        .select("*, tenants(id)")
+        .eq("id", params.token)
+        .is("used_at", null)
+        .single();
+
+      if (tokenError || !tokenData) {
+        return { success: false, error: "Token inválido, expirado ou já utilizado." };
       }
 
-      const tenantId = employee.tenant_id;
+      const tenantId = (tokenData.tenants as any).id;
+      const tokenHash = tokenData.token_hash;
+
+      // 2. Criar Assento Clínico Siloed (Clinical Layer)
+      const { data: assessment, error: assessmentError } = await client
+        .from("assessments")
+        .insert({
+          token_hash: tokenHash,
+          tenant_id: tenantId,
+          protocol_version: "AEGIS-V1"
+        })
+        .select()
+        .single();
+
+      if (assessmentError || !assessment) {
+        return { success: false, error: "Falha ao inicializar silo clínico isolado." };
+      }
 
       // 2. Iniciar sessão
       const { data: session, error: sessionError } = await (createSession(client, {
@@ -61,16 +83,16 @@ export class AssessmentService {
         else if (PHQ9.questions.some(q => q.id === itemCode)) instrumentCode = "PHQ9";
         
         return {
-          session_id: session.id,
+          assessment_id: assessment.id,
           instrument_code: instrumentCode,
           item_code: itemCode,
           answer_numeric: value,
         };
       });
 
-      const { error: answersError } = await (saveAnswers(client, answersToSave) as any);
+      const { error: answersError } = await client.from("assessment_answers").insert(answersToSave as any);
       if (answersError) {
-        return { success: false, error: "Erro ao persistir respostas clínicas." };
+        return { success: false, error: "Erro ao persistir respostas no silo clínico." };
       }
 
       // 4. Cálculo de Scores por Instrumento
@@ -101,71 +123,26 @@ export class AssessmentService {
 
       const score = scoringResult.value;
 
-      // 6. Persistir Resultado Final [PRIORIDADE 3: Atomic Transaction]
-      // Chamamos o RPC 'persist_assessment_results'
-      const { error: rpcError } = await client.rpc("persist_assessment_results", {
-        p_session_id: session.id,
-        p_score: score.compositeRiskScore,
-        p_risk_level: score.riskLevel,
-        p_reasons: score.reasons,
-        p_requires_human_review: score.requiresHumanReview,
-        p_confidence: score.confidence,
-        p_voice_path: params.voicePath || null
+      // 6. Persistir Score no Silo Clínico (Audit Ready)
+      const { error: scoreError } = await client.from("clinical_risk_scores").insert({
+        assessment_id: assessment.id,
+        composite_risk_score: score.compositeRiskScore,
+        risk_level: score.riskLevel,
+        reasons: score.reasons,
+        confidence: score.confidence,
+        metadata: { voice_path: params.voicePath || null }
       } as any);
 
-      if (rpcError) {
-        console.warn("[AssessmentService] RPC failed, falling back to manual insertion:", rpcError);
-        
-        // 6. Persist results with Fallback Resilience
-        console.log("[AssessmentService] Attempting to persist results...");
-        
-        // Tentativa 1: Com voice_path (Padrão 2.0)
-        let { error: manualError } = await (client.from("assessment_scores") as any).insert({
-          session_id: session.id,
-          composite_risk_score: score.compositeRiskScore,
-          risk_level: score.riskLevel,
-          reasons: score.reasons,
-          requires_human_review: score.requiresHumanReview,
-          confidence: score.confidence,
-          voice_path: params.voicePath || null
-        });
-        
-        // Fallback: Se a coluna voice_path não existir, tenta sem ela
-        if (manualError && manualError.code === 'P0000' || manualError?.message?.includes('voice_path')) {
-          console.warn("[AssessmentService] voice_path column missing, falling back to basic insertion.");
-          const { error: fallbackError } = await (client.from("assessment_scores") as any).insert({
-            session_id: session.id,
-            composite_risk_score: score.compositeRiskScore,
-            risk_level: score.riskLevel,
-            reasons: score.reasons,
-            requires_human_review: score.requiresHumanReview,
-            confidence: score.confidence
-          });
-          manualError = fallbackError;
-        }
-
-        if (manualError) {
-          console.error("[AssessmentService] Final Insertion Error:", manualError);
-          return { success: false, error: "Erro ao salvar resultado final da análise." };
-        }
-          
-        // 🎙️ Criar sessão técnica de voz para Auditoria (Silencioso para evitar bloqueio)
-        if (params.voicePath) {
-          try {
-            await (client.from("voice_sessions") as any).insert({
-              tenant_id: session.tenant_id,
-              employee_id: params.employeeId,
-              audio_path: params.voicePath,
-              prompt_type: 'guided_reading',
-              duration_ms: 15000
-            });
-          } catch (e) {
-            console.warn("[AssessmentService] Could not create voice_session log (table missing).");
-          }
-        }
-
-        await (completeSession(client, session.id) as any);
+      if (scoreError) {
+        console.error("[AssessmentService] Insertion Error:", scoreError);
+        return { success: false, error: "Erro ao salvar resultado no silo clínico." };
       }
+
+      // 7. Invalidar Token (Atomic Completion)
+      await client
+        .from("assessment_tokens")
+        .update({ used_at: new Date().toISOString() })
+        .eq("id", params.token);
 
       // 7. Governança IA M2.7 (Audit & Explainability)
       // Logamos a decisão da IA para conformidade com o EU AI Act
