@@ -49,8 +49,7 @@ export class AssessmentService {
       const tenantId = ((tokenData as any).tenants as any).id;
       const tokenHash = (tokenData as any).token_hash;
 
-      // 2. Criar Assento Clínico Siloed (Clinical Layer)
-      const { data: assessment, error: assessmentError } = await client
+      const { data: assessment, error: assessmentError } = await (client as any)
         .from("assessments")
         .insert({
           token_hash: tokenHash,
