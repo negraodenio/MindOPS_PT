@@ -81,12 +81,11 @@ export default function MarketingPage() {
                   <div className="flex justify-between items-start mb-2">
                      <div className="flex items-center gap-3">
                         <Shield className="w-6 h-6 text-emerald-400" />
-                        <span className="font-black tracking-tighter text-lg italic">Motor M2.7</span>
+                        <span className="font-black tracking-tighter text-lg italic">Motor M2.7 de Triagem Preditiva</span>
                      </div>
-                     <span className="bg-emerald-500/20 text-emerald-400 text-[10px] font-black px-2 py-0.5 ml-4 rounded uppercase">Preditivo</span>
                   </div>
                   <p className="text-xs text-slate-400 max-w-[240px] leading-relaxed">
-                     A nossa <strong>Inteligência Artificial proprietária</strong>. Triagem de exaustão via IA com mecanismo obrigatório de supervisão humana (alinhado com o EU AI Act).
+                     A nossa <strong>Inteligência Artificial proprietária de apoio à triagem</strong>. Triagem assistida por IA com mecanismo obrigatório de supervisão humana (alinhado com o EU AI Act).
                   </p>
                </div>
             </div>
@@ -166,7 +165,7 @@ export default function MarketingPage() {
             <div className="p-10 rounded-[4rem] bg-slate-900 text-white space-y-8 relative overflow-hidden group">
                <BarChart3 className="w-12 h-12 text-emerald-400" />
                <h3 className="text-3xl font-black tracking-tighter">Prevenção Preditiva</h3>
-               <p className="text-slate-400 font-medium">Monitorização de risco psicossocial, apoiando políticas do dever de respeitar o descanso (Lei 83/2021).</p>
+               <p className="text-slate-400 font-medium">Monitorização de risco psicossocial, apoiando políticas do dever de abstenção de contacto no período de descanso (Lei 83/2021).</p>
                <ul className="space-y-4">
                   <li className="flex items-center gap-3 text-emerald-400 font-bold text-sm">
                      <CheckCircle2 className="w-4 h-4" /> Apoio ao direito a desligar
@@ -205,11 +204,11 @@ export default function MarketingPage() {
                        <span className="bg-red-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase">INCUMPRIMENTO</span>
                     </div>
                     <div className="flex justify-between items-center border-b border-slate-50 pb-4">
-                       <span className="font-bold text-slate-400">Proteção de Dados (AI Act)</span>
+                       <span className="font-bold text-slate-400">Auditoria de Uso de IA (AI Act)</span>
                        <span className="bg-emerald-500 text-white px-3 py-1 rounded-full text-[10px] font-black uppercase">NIVEL AEGIS ATIVO</span>
                     </div>
                     <div className="bg-slate-950 p-6 rounded-3xl text-center">
-                       <div className="text-orange-400 font-black text-2xl tracking-tighter animate-pulse">AUDIT_ATTENTION_REQUIRED</div>
+                       <div className="text-orange-400 font-black text-2xl tracking-tighter animate-pulse">Atenção Requerida</div>
                        <div className="text-[10px] text-slate-500 mt-2 font-bold uppercase tracking-widest">Indícios Sub-Clínicos Detetados em Avaliações Recentes</div>
                     </div>
                  </div>
@@ -271,7 +270,7 @@ export default function MarketingPage() {
                        "IA Preditiva processa a exaustão, mas a decisão final é validada ativamente pelos especialistas."
                     </p>
                     <p className="text-lg text-slate-400 font-medium leading-relaxed">
-                       Não acreditamos em diagnósticos puramente automáticos num ambiente de risco jurídico. Transformamos o processo do Anexo D e da monitorização num fluxo digital blindado pela ACT.
+                       Não acreditamos em diagnósticos puramente automáticos num ambiente de risco jurídico. Transformamos o fluxo de monitorização e validação clínica num processo digital estruturado para apoiar auditorias e inspeções da ACT.
                     </p>
                  </div>
 
@@ -279,9 +278,9 @@ export default function MarketingPage() {
                     <div className="space-y-2">
                        <div className="flex items-center gap-3">
                           <Brain className="w-6 h-6 text-emerald-600" />
-                          <h4 className="font-black text-xl tracking-tighter">Triagem M2.7 IA</h4>
+                          <h4 className="font-black text-xl tracking-tighter">Triagem Assistida por IA</h4>
                        </div>
-                       <p className="text-sm text-slate-400 font-medium">Detecta padrões de risco invisíveis ao olho humano através de análise acústica e comportamental.</p>
+                       <p className="text-sm text-slate-400 font-medium">Detecta padrões de risco invisíveis ao olho humano através de análise de dados validados e supervisionados.</p>
                     </div>
                     <div className="space-y-2">
                        <div className="flex items-center gap-3">
@@ -321,7 +320,7 @@ export default function MarketingPage() {
               AEGIS HUB
             </div>
             <p className="text-slate-400 text-sm max-w-sm font-medium leading-relaxed">
-              AEGIS HUB Compliance Systems. Santuário Digital de Inteligência Ocupacional e Proteção de Dados de Saúde.
+              AEGIS HUB Compliance Systems. Plataforma de inteligência ocupacional e proteção de dados de saúde.
             </p>
           </div>
           <div className="text-left md:text-right space-y-8">
