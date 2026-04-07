@@ -41,7 +41,7 @@ export default function MarketingPage() {
                   Inteligência a favor da <span className="text-emerald-600 italic">Vida</span> no Trabalho.
                 </h1>
                 <p className="text-xl md:text-2xl text-slate-500 max-w-xl font-medium leading-relaxed">
-                  O AEGIS HUB é uma plataforma de apoio à gestão de risco psicossocial que ajuda organizações a estruturar processos compatíveis com a Lei 102/2009, a Lei 93/2021 e a Lei 83/2021.
+                  A plataforma europeia de saúde ocupacional que apoia a gestão de risco psicossocial, a prevenção em SST e a conformidade laboral, através de triagem assistida por IA, validação humana e registos auditáveis.
                 </p>
               </div>
               
@@ -58,11 +58,7 @@ export default function MarketingPage() {
               <div className="flex flex-wrap items-center gap-8 pt-6">
                  <div className="flex items-center gap-2 text-[11px] font-black uppercase text-slate-400 tracking-widest">
                     <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    EU AI Act & RGPD Aligned
-                 </div>
-                 <div className="flex items-center gap-2 text-[11px] font-black uppercase text-slate-400 tracking-widest">
-                    <CheckCircle2 className="w-4 h-4 text-emerald-500" />
-                    Lei 102/2009 & 83/2021
+                    Concebido para apoiar processos compatíveis com a Lei 102/2009, Lei 93/2021 e Lei 83/2021
                  </div>
               </div>
             </div>
@@ -76,9 +72,8 @@ export default function MarketingPage() {
                   />
                   <div className="absolute top-10 right-10 bg-white/90 backdrop-blur-md p-6 rounded-3xl shadow-xl space-y-4 border border-white/50 animate-bounce duration-[3000ms]">
                      <div className="text-emerald-600 font-black text-2xl tracking-tighter">Retenção de Talentos</div>
-                     <div className="flex items-center gap-2 text-emerald-700 font-bold">
-                        <TrendingUp className="w-5 h-5" />
-                        +34% ROI
+                     <div className="text-slate-500 font-bold text-xs mt-2 leading-relaxed max-w-[200px]">
+                        Melhoria operacional com foco em prevenção, confidencialidade e supervisão humana.
                      </div>
                   </div>
                </div>
@@ -104,7 +99,7 @@ export default function MarketingPage() {
             <div className="text-center max-w-3xl mx-auto mb-20 space-y-6">
               <h2 className="text-5xl font-black tracking-tighter">Standard de Ouro Clínico.</h2>
               <p className="text-slate-500 text-xl font-medium leading-relaxed">
-                A nossa IA não substitui a ciência. Ela escala-a através dos protocolos mais rigorosos da medicina ocupacional moderna.
+                A nossa IA não substitui a ciência. Ela escala-a através de protocolos de triagem e apoio à decisão usados em contexto ocupacional, sempre com validação humana quando aplicável.
               </p>
             </div>
 
@@ -140,13 +135,13 @@ export default function MarketingPage() {
             <div className="p-10 rounded-[4rem] bg-emerald-50 space-y-8 relative overflow-hidden group">
                <HeartPulse className="w-12 h-12 text-emerald-600" />
                <h3 className="text-3xl font-black tracking-tighter">SOS Triage & Apoio Empático</h3>
-               <p className="text-slate-600 font-medium">Intervenção ativa e anónima para exaustão e burnout. Ligação direta a especialistas clínicos.</p>
+               <p className="text-slate-600 font-medium">Intervenção ativa e confidencial para sinais de exaustão, stress e burnout, com encaminhamento para especialistas.</p>
                <ul className="space-y-4">
                   <li className="flex items-center gap-3 text-emerald-800 font-bold text-sm">
-                     <CheckCircle2 className="w-4 h-4" /> Chat Anónimo 24/7
+                     <CheckCircle2 className="w-4 h-4" /> Chat Confidencial 24/7
                   </li>
                   <li className="flex items-center gap-3 text-emerald-800 font-bold text-sm">
-                     <CheckCircle2 className="w-4 h-4" /> Protocolo de Suporte Imediato
+                     <CheckCircle2 className="w-4 h-4" /> Encaminhamento assistido por profissionais
                   </li>
                </ul>
                <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-emerald-200/50 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity" />
@@ -156,13 +151,13 @@ export default function MarketingPage() {
             <div className="p-10 rounded-[4rem] bg-white border border-slate-100 space-y-8 relative overflow-hidden group">
                <Shield className="w-12 h-12 text-slate-800" />
                <h3 className="text-3xl font-black tracking-tighter">Canal de Denúncias Ativo</h3>
-               <p className="text-slate-500 font-medium leading-relaxed">Conformidade obrigatória com a Lei 93/2021. Encriptação assimétrica com sigilo total.</p>
+               <p className="text-slate-500 font-medium leading-relaxed">Infraestrutura para suporte a canais internos de denúncia, com controlo de acesso e registo auditável (Lei 93/2021).</p>
                <ul className="space-y-4">
                   <li className="flex items-center gap-3 text-slate-800 font-bold text-sm">
-                     <Lock className="w-4 h-4" /> Minimização e Controlo de Acesso
+                     <Lock className="w-4 h-4" /> Gestão segura de incidentes
                   </li>
                   <li className="flex items-center gap-3 text-slate-800 font-bold text-sm">
-                     <Zap className="w-4 h-4" /> Arquitetura de Anonimização
+                     <Zap className="w-4 h-4" /> Suporte à proteção do denunciante
                   </li>
                </ul>
             </div>
@@ -171,13 +166,13 @@ export default function MarketingPage() {
             <div className="p-10 rounded-[4rem] bg-slate-900 text-white space-y-8 relative overflow-hidden group">
                <BarChart3 className="w-12 h-12 text-emerald-400" />
                <h3 className="text-3xl font-black tracking-tighter">Prevenção Preditiva</h3>
-               <p className="text-slate-400 font-medium">Monitorização de fadiga e gestão do 'Direito a Desligar' (Lei 83/2021).</p>
+               <p className="text-slate-400 font-medium">Monitorização de risco psicossocial, apoiando políticas do dever de respeitar o descanso (Lei 83/2021).</p>
                <ul className="space-y-4">
                   <li className="flex items-center gap-3 text-emerald-400 font-bold text-sm">
-                     <CheckCircle2 className="w-4 h-4" /> Alertas de Direito a Desligar
+                     <CheckCircle2 className="w-4 h-4" /> Apoio ao direito a desligar
                   </li>
                   <li className="flex items-center gap-3 text-emerald-400 font-bold text-sm">
-                     <CheckCircle2 className="w-4 h-4" /> Mapeamento de Fatores de Stress
+                     <CheckCircle2 className="w-4 h-4" /> Alertas de risco operacional
                   </li>
                </ul>
             </div>
@@ -188,13 +183,13 @@ export default function MarketingPage() {
         <section className="py-24 bg-red-50">
            <div className="max-w-6xl mx-auto px-6 grid lg:grid-cols-2 gap-20 items-center">
               <div className="space-y-10">
-                 <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-red-100 text-red-700 text-xs font-black uppercase tracking-widest border border-red-200">
-                    <AlertTriangle className="w-4 h-4" /> Alerta de Risco Operacional
-                 </div>
-                 <h2 className="text-5xl font-black text-slate-900 tracking-tighter leading-[0.95]">Gerencie os Riscos de Acidentes e Passivo Jurídico.</h2>
-                 <p className="text-xl text-slate-600 font-medium leading-relaxed">
-                    As coimas por incumprimento do RGPD e as auditorias da ACT sobre a Lei 102/2009 exigem prevenção contínua. São riscos reais que o AEGIS HUB reduz significativamente através de infraestrutura auditável e processos guiados.
-                 </p>
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-emerald-100 text-emerald-900 text-xs font-black uppercase tracking-widest border border-emerald-200">
+                     <Shield className="w-4 h-4" /> Alinhamento legal em Portugal
+                  </div>
+                  <h2 className="text-5xl font-black text-slate-900 tracking-tighter leading-[0.95]">Suporte à Conformidade Organizacional.</h2>
+                  <p className="text-xl text-slate-600 font-medium leading-relaxed">
+                     O AEGIS HUB foi desenhado para apoiar organizações na gestão de canais de denúncia, na abstenção de contacto no período de descanso e na promoção de SST. A plataforma não substitui serviços de SST ou assessoria, mas fornece infraestrutura digital para validação e auditoria.
+                  </p>
                  <button className="bg-slate-900 text-white px-10 py-5 rounded-[2rem] font-black text-xl hover:shadow-2xl transition-all active:scale-95">
                     Auditar Meu Risco de Multa Agora
                  </button>
@@ -306,7 +301,7 @@ export default function MarketingPage() {
               <div className="relative z-10 space-y-12">
                  <h2 className="text-5xl md:text-[84px] font-black text-white tracking-tighter leading-[0.9]">Visão de Futuro. Segurança Jurídica.</h2>
                  <p className="text-emerald-200/60 text-xl font-medium max-w-2xl mx-auto leading-relaxed">
-                    Cuidar da Saúde Mental já não é uma métrica intangível. É dever social e proteção do seu volume de negócios.
+                    Cuidar da saúde mental e do risco psicossocial já não é apenas uma questão humana. É também uma dimensão de prevenção organizacional, continuidade operacional e gestão responsável.
                  </p>
                  <button className="bg-emerald-500 text-emerald-950 px-16 py-7 rounded-[2.5rem] font-black text-2xl hover:shadow-2xl transition-all active:scale-95 shadow-xl shadow-emerald-500/20">
                     Falar com um C-Level AEGIS
