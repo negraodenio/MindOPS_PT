@@ -37,11 +37,31 @@ export function WorkerWizard({ token }: WorkerWizardProps) {
     const normalizedToken = token?.toUpperCase().trim();
     const isDemo = normalizedToken === "DEMO-PARTNER";
 
-    // Resilience: If it's a demo, we can proceed even if context fetch failed
-    if (!context && !isDemo) {
-      console.warn("Retrying context fetch...");
+    console.info(`[AEGIS_DEBUG] Clicked. Token: ${normalizedToken}, isDemo: ${isDemo}`);
+
+    // v2.2 ABSOLUTE BYPASS: If it's a demo, we MUST move instantly.
+    if (isDemo) {
+      console.info("[AEGIS_DEBUG] Transitioning instantly (Demo Bypass).");
+      setStep("instrument");
+      
+      // Fire-and-forget server log (optional, doesn't block UI)
+      submitConsentAction({
+        employeeId: "DEMO-PARTNER",
+        tenantId: "demo-tenant-uuid",
+        consents: [
+          { type: "psychosocial_processing", granted: consents.data_processing },
+          { type: "voice_technical_analysis", granted: consents.voice_biometrics }
+        ]
+      }).catch(() => {});
+      return;
+    }
+
+    // Normal flow (Only for real tokens)
+    if (!context) {
+      setIsSubmitting(true);
       const retryContext = await getAssessmentContext(normalizedToken);
       if (!retryContext) {
+        setIsSubmitting(false);
         alert("Erro de sincronização. Por favor, recarregue a página.");
         return;
       }
@@ -51,8 +71,8 @@ export function WorkerWizard({ token }: WorkerWizardProps) {
     setIsSubmitting(true);
     try {
       await submitConsentAction({
-        employeeId: isDemo ? "DEMO-PARTNER" : token,
-        tenantId: context?.tenantId || (isDemo ? "demo-tenant-uuid" : ""), 
+        employeeId: token,
+        tenantId: context?.tenantId || "", 
         consents: [
           { type: "psychosocial_processing", granted: consents.data_processing },
           { type: "voice_technical_analysis", granted: consents.voice_biometrics }
@@ -114,8 +134,18 @@ export function WorkerWizard({ token }: WorkerWizardProps) {
     }
   };
 
+  const isDemoMode = token?.toUpperCase().trim() === "DEMO-PARTNER";
+
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col">
+    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans flex flex-col relative">
+      {/* 🟢 Badge de Versão v2.2 (Garante que o fix foi carregado) */}
+      {isDemoMode && (
+        <div className="absolute top-4 left-1/2 -translate-x-1/2 z-50">
+          <span className="bg-emerald-500 text-black text-[10px] font-black px-4 py-1.5 rounded-full shadow-lg border border-white/20 uppercase tracking-widest animate-pulse">
+            MODO DEMO ATIVO (v2.2 Zero-Block)
+          </span>
+        </div>
+      )}
       <header className="bg-white border-b border-slate-200 p-6 flex justify-between items-center shadow-sm">
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 bg-blue-600 rounded-lg flex items-center justify-center">
@@ -203,7 +233,7 @@ export function WorkerWizard({ token }: WorkerWizardProps) {
                 <button 
                   disabled={!consents.data_processing || isSubmitting}
                   onClick={handleConsentSubmit}
-                  className="bg-slate-900 text-white font-bold py-3 px-8 rounded-xl disabled:opacity-50 hover:bg-slate-800 transition shadow-lg"
+                  className="w-full bg-slate-900 text-white font-bold py-4 px-8 rounded-xl disabled:opacity-50 hover:bg-slate-800 transition shadow-lg active:scale-95"
                 >
                   {isSubmitting ? "A processar..." : "Confirmar e Avançar"}
                 </button>
