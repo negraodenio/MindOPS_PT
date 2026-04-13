@@ -10,7 +10,8 @@ export async function submitConsentAction(params: {
   tenantId: string;
   consents: { type: string; granted: boolean }[];
 }) {
-  if (params.employeeId === "DEMO-PARTNER") {
+  const normalizedToken = params.employeeId?.toUpperCase().trim();
+  if (normalizedToken === "DEMO-PARTNER") {
     console.log("🛡️ [DEMO-MODE] Consentimento simulado capturado.");
     return { success: true };
   }
@@ -36,7 +37,8 @@ export async function submitAssessmentAction(formData: {
   verticalPack: string;
   voicePath?: string | undefined;
 }) {
-  if (formData.employeeId === "DEMO-PARTNER") {
+  const normalizedToken = formData.employeeId?.toUpperCase().trim();
+  if (normalizedToken === "DEMO-PARTNER") {
     console.log("🚀 [DEMO-MODE] Submissão de avaliação simulada.");
     return { success: true, data: { risk_level: "low", composite_risk_score: 15 } };
   }
@@ -67,7 +69,8 @@ export async function submitAssessmentAction(formData: {
 }
 
 export async function getAssessmentContext(token: string) {
-  if (token === "DEMO-PARTNER") {
+  const normalizedToken = token?.toUpperCase().trim();
+  if (normalizedToken === "DEMO-PARTNER") {
     return {
       employeeName: "Parceiro de Inovação",
       companyName: "NEXUS SafeHorizon",

@@ -24,18 +24,35 @@ export function WorkerWizard({ token }: WorkerWizardProps) {
   const [context, setContext] = useState<{ employeeName: string; companyName: string; verticalPack: string; tenantId?: string } | null>(null);
 
   useEffect(() => {
-    getAssessmentContext(token).then(setContext);
+    const normalizedToken = token?.toUpperCase().trim();
+    getAssessmentContext(normalizedToken).then(setContext).catch(err => {
+      console.error("[CONTEXT_FETCH_ERROR]", err);
+      // Fail silently for demo mode as we handle it in the click handler
+    });
   }, [token]);
 
   const currentInstrument = instruments[currentInstrumentIdx];
 
   const handleConsentSubmit = async () => {
-    if (!context) return;
+    const normalizedToken = token?.toUpperCase().trim();
+    const isDemo = normalizedToken === "DEMO-PARTNER";
+
+    // Resilience: If it's a demo, we can proceed even if context fetch failed
+    if (!context && !isDemo) {
+      console.warn("Retrying context fetch...");
+      const retryContext = await getAssessmentContext(normalizedToken);
+      if (!retryContext) {
+        alert("Erro de sincronização. Por favor, recarregue a página.");
+        return;
+      }
+      setContext(retryContext);
+    }
+
     setIsSubmitting(true);
     try {
       await submitConsentAction({
-        employeeId: token,
-        tenantId: context.tenantId || "", 
+        employeeId: isDemo ? "DEMO-PARTNER" : token,
+        tenantId: context?.tenantId || (isDemo ? "demo-tenant-uuid" : ""), 
         consents: [
           { type: "psychosocial_processing", granted: consents.data_processing },
           { type: "voice_technical_analysis", granted: consents.voice_biometrics }
