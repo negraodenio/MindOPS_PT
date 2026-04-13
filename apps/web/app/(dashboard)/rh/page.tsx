@@ -37,7 +37,7 @@ export default async function RHDashboardPage({
        tenantName = (acme as any)?.name || "ACME Enterprise";
     }
 
-    const { overview, heatmap, actionQueue } = await RHService.getDashboardData(client as any, targetTenantId);
+    const { overview, heatmap, actionQueue } = await RHService.getDashboardData(client as any, targetTenantId!);
 
     return (
       <main className="space-y-12 p-8 max-w-7xl mx-auto animate-in fade-in duration-500">

@@ -31,7 +31,7 @@ export default async function LineManagerDashboardPage({
        tenantName = (acme as any)?.name || "ACME Enterprise";
     }
 
-    const data = await getManagerOverview(client as any, targetTenantId, orgUnitId);
+    const data = await getManagerOverview(client as any, targetTenantId!, orgUnitId);
 
     return (
       <main className="min-h-screen bg-[#020202] text-white p-8 animate-in fade-in duration-700 font-sans">

@@ -31,7 +31,7 @@ export default async function ClinicalPortalPage({
        tenantName = (acme as any)?.name || "ACME Enterprise";
     }
 
-    const { data: queue, error } = await getClinicalReviewQueue(client as any, targetTenantId);
+    const { data: queue, error } = await getClinicalReviewQueue(client as any, targetTenantId!);
 
   const stats = {
     pending: queue?.length ?? 0,
