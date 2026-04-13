@@ -10,6 +10,11 @@ export async function submitConsentAction(params: {
   tenantId: string;
   consents: { type: string; granted: boolean }[];
 }) {
+  if (params.employeeId === "DEMO-PARTNER") {
+    console.log("🛡️ [DEMO-MODE] Consentimento simulado capturado.");
+    return { success: true };
+  }
+
   const supabase = await createClient();
   
   const promises = params.consents.map(c => 
@@ -31,6 +36,11 @@ export async function submitAssessmentAction(formData: {
   verticalPack: string;
   voicePath?: string | undefined;
 }) {
+  if (formData.employeeId === "DEMO-PARTNER") {
+    console.log("🚀 [DEMO-MODE] Submissão de avaliação simulada.");
+    return { success: true, data: { risk_level: "low", composite_risk_score: 15 } };
+  }
+
   const supabase = await createClient();
   const result = await AssessmentService.submitCompleteAssessment(supabase as any, formData as any);
 
@@ -57,6 +67,15 @@ export async function submitAssessmentAction(formData: {
 }
 
 export async function getAssessmentContext(token: string) {
+  if (token === "DEMO-PARTNER") {
+    return {
+      employeeName: "Parceiro de Inovação",
+      companyName: "NEXUS SafeHorizon",
+      verticalPack: "high-tech",
+      tenantId: "demo-tenant-uuid"
+    };
+  }
+
   const supabase = await createClient();
   // Simple POC: token is expected to be employeeId (UUID)
   const { data: rawEmployee, error } = await getEmployeeContext(supabase as any, token);
