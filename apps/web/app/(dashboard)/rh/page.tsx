@@ -33,8 +33,8 @@ export default async function RHDashboardPage({
     // 2. Fallback para o tenant ACME se tudo falhar (para facilitar o teste do parceiro)
     if (!targetTenantId) {
        const { data: acme } = await client.from("tenants").select("id, name").eq("slug", "acme-corp").single();
-       targetTenantId = acme?.id || "e037420f-71b2-40e7-935f-170eb265b36a";
-       tenantName = acme?.name || "ACME Enterprise";
+       targetTenantId = (acme as any)?.id || "e037420f-71b2-40e7-935f-170eb265b36a";
+       tenantName = (acme as any)?.name || "ACME Enterprise";
     }
 
     const { overview, heatmap, actionQueue } = await RHService.getDashboardData(client as any, targetTenantId);
