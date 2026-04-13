@@ -1,6 +1,7 @@
 import { getClinicalReviewQueue } from "@mindops/database";
 import { createClient } from "../../../utils/supabase/server";
 import { BrainCircuit, Activity, AlertCircle, Clock, CheckCircle2, ChevronRight, Stethoscope, ShieldCheck } from "lucide-react";
+import Link from "next/link";
 
 export default async function ClinicalPortalPage({
   searchParams
@@ -157,6 +158,7 @@ export default async function ClinicalPortalPage({
           )}
         </div>
       </section>
+    </main>
     );
   } catch (error: any) {
     console.error("[CLINICAL_PORTAL_ERROR]", error);

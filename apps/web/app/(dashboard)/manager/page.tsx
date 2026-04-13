@@ -1,6 +1,7 @@
 import { getManagerOverview } from "@mindops/database";
 import { createClient } from "../../../utils/supabase/server";
 import { BrainCircuit, Users, AlertTriangle, ShieldCheck, TrendingUp } from "lucide-react";
+import Link from "next/link";
 
 export default async function LineManagerDashboardPage({
   searchParams
